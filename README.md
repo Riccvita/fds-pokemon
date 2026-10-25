@@ -2,11 +2,11 @@
 
 **Task:** predict whether Player 1 eventually wins a Gen 2 OU battle, using only Player 1's team, the opposing lead, and the first 30 observed turns. The target is `player_won` (0 or 1).
 
-The repository contains a fully reproducible, **classical machine learning** pipeline using only the official competition inputs. Neural networks, external Pokémon databases, extra replay files, and pretrained models are not used.
+The repository contains an executable **classical machine learning** pipeline using only the official competition inputs. Neural networks, external Pokémon databases, extra replay files, and pretrained models are not used.
 
 ## Cross-validated results
 
-All reported accuracies use **the labeled 10,000 training battles only**, with stratified five-fold cross-validation (random seed 42). Team target encodings are recomputed from the four training folds in every outer split and are additionally cross-fitted inside the training fold. The competition test set is never used to assess accuracy.
+The historical reference accuracies below use **the labeled 10,000 training battles only**, with stratified five-fold cross-validation (random seed 42). Team target encodings are recomputed from the four training folds in every outer split and are additionally cross-fitted inside the training fold. The competition test set is never used to assess accuracy.
 
 | Model or submission | Models / blend weights | OOF accuracy |
 | --- | --- | ---: |
@@ -16,6 +16,14 @@ All reported accuracies use **the labeled 10,000 training battles only**, with s
 | `sub1_lgbm.csv` | LGBM 100% | 69.50% |
 | `sub2_lgb_xgb.csv` | LGBM 50% + XGB 50% | 69.70% |
 | **`sub3_lgb_xgb_cat.csv`** | **LGBM 45% + XGB 45% + CAT 10%** | **69.79%** |
+
+These are historical measurements, not guaranteed outputs in every environment.
+A supplied Kaggle execution log reports 69.50% / 69.29% / 69.31% for the base
+models and 69.50% for the three-model blend. The log does not include library
+versions, so the exact cause of the difference is unconfirmed. The notebook
+now records loaded versions, input checksums, model parameters and the Git
+commit in `run_manifest.json`, and reports each run's actual scores. See
+[`docs/KAGGLE_REPRODUCIBILITY.md`](docs/KAGGLE_REPRODUCIBILITY.md).
 
 **The requested 80% target has not been achieved.** The best measured gain over the original LightGBM reference is only 0.29 percentage points. Five-fold selection of blend weights can cause modest optimistic bias in the quoted ensemble result; private test performance is unknown.
 
@@ -65,6 +73,12 @@ python run.py --data /path/to/data --out submissions --cv
 ```
 
 Run `notebooks/kaggle_notebook.ipynb` on Kaggle after substituting the public repository URL in the clone cell. Kaggle Internet access must permit the `git clone` operation.
+
+The notebook also evaluates the 42-feature active-strength candidate with seed
+42 and saves its OOF predictions, scores and separate candidate CSVs. Set
+`RUN_STRENGTH_RESEARCH = False` in the setup cell to skip this additional
+experiment. Its previously measured local accuracy of 69.85% must be checked
+in the Kaggle environment; it is not part of the original 637-feature baseline.
 
 The three submissions must preserve the official template's `battle_id` order and contain binary predictions. Follow the competition's daily limits and final selection requirements.
 
