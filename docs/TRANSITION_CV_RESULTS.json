@@ -1,0 +1,47 @@
+{
+  "protocol": {
+    "n_train": 10000,
+    "n_folds": 5,
+    "fold_seed": 42,
+    "metric": "accuracy",
+    "target_encoding": "nested inner 5-fold"
+  },
+  "scores": {
+    "original_ensemble": {
+      "accuracy": 0.6979,
+      "roc_auc": 0.765593
+    },
+    "forecast_xgb": {
+      "accuracy": 0.692,
+      "roc_auc": 0.763981
+    },
+    "forecast_transition_xgb": {
+      "accuracy": 0.6938,
+      "roc_auc": 0.764217
+    },
+    "original_plus_forecast_xgb_0.15": {
+      "accuracy": 0.6966,
+      "roc_auc": 0.765793
+    },
+    "original_plus_forecast_xgb_0.30": {
+      "accuracy": 0.6956,
+      "roc_auc": 0.765856
+    },
+    "original_plus_forecast_xgb_0.50": {
+      "accuracy": 0.6955,
+      "roc_auc": 0.765689
+    },
+    "original_plus_forecast_transition_xgb_0.15": {
+      "accuracy": 0.6968,
+      "roc_auc": 0.765985
+    },
+    "original_plus_forecast_transition_xgb_0.30": {
+      "accuracy": 0.6962,
+      "roc_auc": 0.766174
+    },
+    "original_plus_forecast_transition_xgb_0.50": {
+      "accuracy": 0.6958,
+      "roc_auc": 0.766082
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "method": "pair-xgb",
+  "n_observations": 10000,
+  "fold_accuracies": [
+    0.697,
+    0.6925,
+    0.699,
+    0.6935,
+    0.6795
+  ],
+  "accuracy": 0.6923,
+  "roc_auc": 0.764515,
+  "test_labels_used": false
+}
