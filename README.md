@@ -77,8 +77,8 @@ Run `notebooks/kaggle_notebook.ipynb` on Kaggle after substituting the public re
 The notebook also evaluates the 42-feature active-strength candidate with seed
 42 and saves its OOF predictions, scores and separate candidate CSVs. Set
 `RUN_STRENGTH_RESEARCH = False` in the setup cell to skip this additional
-experiment. Its previously measured local accuracy of 69.85% must be checked
-in the Kaggle environment; it is not part of the original 637-feature baseline.
+experiment. A follow-up Kaggle run measured 69.64%, compared with 69.85%
+locally; this candidate is not part of the original 637-feature baseline.
 
 The three submissions must preserve the official template's `battle_id` order and contain binary predictions. Follow the competition's daily limits and final selection requirements.
 
@@ -182,7 +182,14 @@ function docstrings are in English.
 
 A further five-fold experiment adds 42 interactions between active HP, base
 statistics, stat stages and status conditions. The strongest individual
-XGBoost reaches **69.85%**; its five-seed average reaches **69.77%**.
+XGBoost reaches **69.85% locally**; its five-seed average reaches **69.77%**.
+The supplied Kaggle follow-up log measures **69.64%** for the individual
+candidate against **69.50%** for the same-run reference; its fixed blend
+measures 69.51%. The six reported direct package versions are pinned in
+`requirements-kaggle.txt` for controlled comparisons.
+Repeating the run locally with all six Kaggle direct versions still gives
+69.85%, so those version differences alone did not explain the discrepancy
+in the controlled local comparison.
 The original ensemble scores **69.42% in this new environment**, so these
 figures should not be directly compared with the historical 69.79% as if
 they came from an identical run. No tested alternative exceeded 70%.

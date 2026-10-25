@@ -1,0 +1,90 @@
+{
+  "n_observations": 10000,
+  "outer_fold_seed": 42,
+  "seeds": [
+    42
+  ],
+  "threshold": 0.5,
+  "n_strength_features": 42,
+  "test_labels_used": false,
+  "versions": {
+    "numpy": "2.1.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.6.1",
+    "lightgbm": "4.6.0",
+    "xgboost": "3.4.1",
+    "catboost": "1.2.10"
+  },
+  "candidates": {
+    "reference": {
+      "accuracy": 0.6942,
+      "roc_auc": 0.76523232,
+      "correct": 6942,
+      "fold_accuracies": [
+        0.687,
+        0.689,
+        0.7015,
+        0.704,
+        0.6895
+      ],
+      "corrected_vs_reference": 0,
+      "regressed_vs_reference": 0
+    },
+    "strength_xgb": {
+      "accuracy": 0.6985,
+      "roc_auc": 0.7657590999999999,
+      "correct": 6985,
+      "fold_accuracies": [
+        0.6975,
+        0.695,
+        0.704,
+        0.703,
+        0.693
+      ],
+      "corrected_vs_reference": 246,
+      "regressed_vs_reference": 203
+    },
+    "strength_reference_blend": {
+      "accuracy": 0.6978,
+      "roc_auc": 0.7661972,
+      "correct": 6978,
+      "fold_accuracies": [
+        0.6915,
+        0.697,
+        0.705,
+        0.7035,
+        0.692
+      ],
+      "corrected_vs_reference": 133,
+      "regressed_vs_reference": 97
+    }
+  },
+  "individual_strength_seed_accuracies": {
+    "42": 0.6985
+  },
+  "profile": "default",
+  "profile_overrides": {},
+  "baseline_model_accuracies": {
+    "lgb": 0.6939,
+    "xgb": 0.6925,
+    "cat": 0.6916
+  },
+  "train_sha256": "78f9e91c51b92adebe803bb09221347a55423dce080e433465edf527d2c20d0d",
+  "source": "Local execution with the six direct package versions reported by Kaggle; this is not a Kaggle run",
+  "repo_commit": "93ff2eaf4d95b50a7cf3ec47d26e2908b306bc38",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.13.2 (v3.13.2:4f8bb3947cf, Feb  4 2025, 11:51:10) [Clang 15.0.0 (clang-1500.3.9.4)]",
+  "feature_comparison": {
+    "reference": "Original local feature matrices used for 69.85%",
+    "train_values_identical": true,
+    "test_values_identical": true,
+    "columns_identical": true,
+    "labels_identical": true
+  },
+  "oof_comparison": {
+    "reference": "STRENGTH_SINGLE_CV_RESULTS.oof.csv.gz",
+    "hard_predictions_identical": true,
+    "max_absolute_difference": 2.220446049250313e-16
+  }
+}

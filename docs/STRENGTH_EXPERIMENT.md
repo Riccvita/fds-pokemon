@@ -7,6 +7,12 @@ XGBoost with 42 deterministic active-strength interactions: **69.85%**
 five-fold out-of-fold accuracy (6,985 correct predictions out of 10,000).
 Five-seed averaging of that model scores **69.77%**.
 
+**Subsequent Kaggle measurement:** the seed-42 individual candidate scores
+**69.64%**, versus **69.50%** for its within-run reference; the fixed 50/50
+blend scores 69.51%. The local 69.85% was not reproduced on Kaggle. The actual
+Kaggle log, version differences and direct-version constraints are documented
+in [`KAGGLE_REPRODUCIBILITY.md`](KAGGLE_REPRODUCIBILITY.md).
+
 The original three-model ensemble scores **69.42% in this environment**.
 The historical **69.79%** in the earlier reports was not reproduced here.
 Consequently, the within-run gain for the new individual XGBoost is 0.43
