@@ -1,0 +1,82 @@
+{
+  "n_observations": 10000,
+  "outer_fold_seed": 42,
+  "seeds": [
+    42,
+    137,
+    2026,
+    31415,
+    271828
+  ],
+  "threshold": 0.5,
+  "n_strength_features": 42,
+  "test_labels_used": false,
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "xgboost": "3.4.1",
+    "catboost": "1.2.10"
+  },
+  "candidates": {
+    "reference": {
+      "accuracy": 0.6942,
+      "roc_auc": 0.76523232,
+      "correct": 6942,
+      "fold_accuracies": [
+        0.687,
+        0.689,
+        0.7015,
+        0.704,
+        0.6895
+      ],
+      "corrected_vs_reference": 0,
+      "regressed_vs_reference": 0
+    },
+    "strength_xgb": {
+      "accuracy": 0.6977,
+      "roc_auc": 0.76613316,
+      "correct": 6977,
+      "fold_accuracies": [
+        0.696,
+        0.6915,
+        0.704,
+        0.709,
+        0.688
+      ],
+      "corrected_vs_reference": 211,
+      "regressed_vs_reference": 176
+    },
+    "strength_reference_blend": {
+      "accuracy": 0.6968,
+      "roc_auc": 0.76619484,
+      "correct": 6968,
+      "fold_accuracies": [
+        0.6905,
+        0.691,
+        0.7045,
+        0.7055,
+        0.6925
+      ],
+      "corrected_vs_reference": 109,
+      "regressed_vs_reference": 83
+    }
+  },
+  "individual_strength_seed_accuracies": {
+    "42": 0.6985,
+    "137": 0.6969,
+    "2026": 0.6965,
+    "31415": 0.6945,
+    "271828": 0.6982
+  },
+  "profile": "default",
+  "profile_overrides": {},
+  "baseline_model_accuracies": {
+    "lgb": 0.6939,
+    "xgb": 0.6925,
+    "cat": 0.6916
+  },
+  "train_sha256": "78f9e91c51b92adebe803bb09221347a55423dce080e433465edf527d2c20d0d",
+  "oof_file": "STRENGTH_CV_RESULTS.oof.csv.gz"
+}

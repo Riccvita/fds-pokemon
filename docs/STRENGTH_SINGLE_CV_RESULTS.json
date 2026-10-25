@@ -1,0 +1,78 @@
+{
+  "n_observations": 10000,
+  "outer_fold_seed": 42,
+  "seeds": [
+    42
+  ],
+  "threshold": 0.5,
+  "n_strength_features": 42,
+  "test_labels_used": false,
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "xgboost": "3.4.1",
+    "catboost": "1.2.10"
+  },
+  "candidates": {
+    "reference": {
+      "accuracy": 0.6942,
+      "roc_auc": 0.76523232,
+      "correct": 6942,
+      "fold_accuracies": [
+        0.687,
+        0.689,
+        0.7015,
+        0.704,
+        0.6895
+      ],
+      "corrected_vs_reference": 0,
+      "regressed_vs_reference": 0
+    },
+    "strength_xgb": {
+      "accuracy": 0.6985,
+      "roc_auc": 0.7657590999999999,
+      "correct": 6985,
+      "fold_accuracies": [
+        0.6975,
+        0.695,
+        0.704,
+        0.703,
+        0.693
+      ],
+      "corrected_vs_reference": 246,
+      "regressed_vs_reference": 203
+    },
+    "strength_reference_blend": {
+      "accuracy": 0.6978,
+      "roc_auc": 0.7661972,
+      "correct": 6978,
+      "fold_accuracies": [
+        0.6915,
+        0.697,
+        0.705,
+        0.7035,
+        0.692
+      ],
+      "corrected_vs_reference": 133,
+      "regressed_vs_reference": 97
+    }
+  },
+  "individual_strength_seed_accuracies": {
+    "42": 0.6985
+  },
+  "train_sha256": "78f9e91c51b92adebe803bb09221347a55423dce080e433465edf527d2c20d0d",
+  "profile": "default",
+  "profile_overrides": {},
+  "baseline_model_accuracies": {
+    "lgb": 0.6939,
+    "xgb": 0.6925,
+    "cat": 0.6916
+  },
+  "oof_file": "STRENGTH_SINGLE_CV_RESULTS.oof.csv.gz",
+  "submission_files": {
+    "candidate_strength_xgb": "submissions/candidates/candidate_strength_xgb.csv",
+    "candidate_strength_blend": "submissions/candidates/candidate_strength_blend.csv"
+  }
+}

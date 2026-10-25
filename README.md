@@ -163,3 +163,18 @@ controls, tested hypotheses, and reproducible commands.
 `research_70.py` can independently reproduce the added methods without
 altering the three official submission models. All source comments and
 function docstrings are in English.
+
+### Active-strength follow-up
+
+A further five-fold experiment adds 42 interactions between active HP, base
+statistics, stat stages and status conditions. The strongest individual
+XGBoost reaches **69.85%**; its five-seed average reaches **69.77%**.
+The original ensemble scores **69.42% in this new environment**, so these
+figures should not be directly compared with the historical 69.79% as if
+they came from an identical run. No tested alternative exceeded 70%.
+
+`strength_experiment.py` records the package versions, input checksum,
+per-fold scores and OOF probabilities, and can generate separate candidate
+submissions. See [`docs/STRENGTH_EXPERIMENT.md`](docs/STRENGTH_EXPERIMENT.md)
+for results, limitations and reproduction commands. The three selected
+submission files and the notebook remain unchanged by this experiment.

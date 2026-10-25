@@ -1,0 +1,279 @@
+{
+  "train_sha256": "78f9e91c51b92adebe803bb09221347a55423dce080e433465edf527d2c20d0d",
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1",
+    "lightgbm": "4.7.0",
+    "xgboost": "3.4.1",
+    "catboost": "1.2.10"
+  },
+  "n_observations": 10000,
+  "outer_fold_seed": 42,
+  "threshold": 0.5,
+  "test_labels_used": false,
+  "exploratory_selection_results": true,
+  "methods": {
+    "reference_five_seed_average": {
+      "accuracy": 0.6966,
+      "roc_auc": 0.7660095199999999,
+      "fold_accuracies": [
+        0.6925,
+        0.689,
+        0.7035,
+        0.7085,
+        0.6895
+      ],
+      "configuration": {
+        "seeds": [
+          42,
+          137,
+          2026,
+          31415,
+          271828
+        ],
+        "model_weights": [
+          0.45,
+          0.45,
+          0.1
+        ]
+      }
+    },
+    "strength_longer": {
+      "accuracy": 0.6969,
+      "roc_auc": 0.7663884599999999,
+      "fold_accuracies": [
+        0.6895,
+        0.6945,
+        0.704,
+        0.7075,
+        0.689
+      ],
+      "configuration": {
+        "seed": 42,
+        "overrides": {
+          "n_estimators": 800,
+          "learning_rate": 0.02
+        }
+      }
+    },
+    "strength_shallow": {
+      "accuracy": 0.6964,
+      "roc_auc": 0.7668495799999999,
+      "fold_accuracies": [
+        0.6995,
+        0.6915,
+        0.6985,
+        0.7055,
+        0.687
+      ],
+      "configuration": {
+        "seed": 42,
+        "overrides": {
+          "n_estimators": 800,
+          "max_depth": 3
+        }
+      }
+    },
+    "strength_deeper": {
+      "accuracy": 0.6954,
+      "roc_auc": 0.76471814,
+      "fold_accuracies": [
+        0.6935,
+        0.693,
+        0.7005,
+        0.703,
+        0.687
+      ],
+      "configuration": {
+        "seed": 42,
+        "overrides": {
+          "n_estimators": 600,
+          "max_depth": 5,
+          "min_child_weight": 20,
+          "reg_lambda": 30
+        }
+      }
+    },
+    "strength_regularized": {
+      "accuracy": 0.6953,
+      "roc_auc": 0.7653356,
+      "fold_accuracies": [
+        0.6925,
+        0.6885,
+        0.7,
+        0.7055,
+        0.69
+      ],
+      "configuration": {
+        "seed": 42,
+        "overrides": {
+          "colsample_bytree": 0.5,
+          "subsample": 1.0,
+          "min_child_weight": 20,
+          "reg_lambda": 30
+        }
+      }
+    },
+    "cat-native": {
+      "accuracy": 0.6955,
+      "roc_auc": 0.7664239600000001,
+      "fold_accuracies": [
+        0.693,
+        0.694,
+        0.695,
+        0.6995,
+        0.696
+      ],
+      "configuration": {
+        "seed": 42,
+        "screen": "native categorical / wider trees / other tree learners"
+      }
+    },
+    "lgb-wide": {
+      "accuracy": 0.6929,
+      "roc_auc": 0.7647468799999999,
+      "fold_accuracies": [
+        0.6835,
+        0.6895,
+        0.6985,
+        0.7075,
+        0.6855
+      ],
+      "configuration": {
+        "seed": 42,
+        "screen": "native categorical / wider trees / other tree learners"
+      }
+    },
+    "hist": {
+      "accuracy": 0.6908,
+      "roc_auc": 0.76475608,
+      "fold_accuracies": [
+        0.684,
+        0.688,
+        0.6935,
+        0.705,
+        0.6835
+      ],
+      "configuration": {
+        "seed": 42,
+        "screen": "native categorical / wider trees / other tree learners"
+      }
+    },
+    "extra-trees": {
+      "accuracy": 0.6806,
+      "roc_auc": 0.7474896400000001,
+      "fold_accuracies": [
+        0.6815,
+        0.674,
+        0.6775,
+        0.692,
+        0.678
+      ],
+      "configuration": {
+        "seed": 42,
+        "screen": "native categorical / wider trees / other tree learners"
+      }
+    },
+    "precision_indicator": {
+      "accuracy": 0.6953,
+      "roc_auc": 0.76641144,
+      "fold_accuracies": [
+        0.6875,
+        0.6905,
+        0.6985,
+        0.71,
+        0.69
+      ],
+      "configuration": {
+        "seed": 42,
+        "model_weights": [
+          0.45,
+          0.45,
+          0.1
+        ]
+      }
+    },
+    "format_specialists": {
+      "accuracy": 0.6838,
+      "roc_auc": 0.75611708,
+      "fold_accuracies": [
+        0.6845,
+        0.6835,
+        0.6855,
+        0.689,
+        0.6765
+      ],
+      "configuration": {
+        "seed": 42,
+        "model_weights": [
+          0.45,
+          0.45,
+          0.1
+        ]
+      }
+    },
+    "last_appearance_features": {
+      "accuracy": 0.6922,
+      "roc_auc": 0.7652380000000001,
+      "fold_accuracies": [
+        0.6915,
+        0.682,
+        0.69,
+        0.7105,
+        0.687
+      ],
+      "configuration": {
+        "seed": 42,
+        "model_weights": [
+          0.45,
+          0.45,
+          0.1
+        ]
+      }
+    },
+    "strength_original_blend": {
+      "accuracy": 0.6963,
+      "roc_auc": 0.7665784400000001,
+      "fold_accuracies": [
+        0.6925,
+        0.691,
+        0.7,
+        0.705,
+        0.693
+      ],
+      "configuration": {
+        "seed": 42,
+        "model_weights": [
+          0.45,
+          0.45,
+          0.1
+        ]
+      }
+    },
+    "selected_strength_single_bag_blend": {
+      "accuracy": 0.6989,
+      "roc_auc": 0.76628656,
+      "fold_accuracies": [
+        0.6975,
+        0.6965,
+        0.705,
+        0.7045,
+        0.691
+      ],
+      "configuration": {
+        "strength_seed": 42,
+        "strength_weight": 0.75,
+        "reference_seeds": [
+          42,
+          137,
+          2026,
+          31415,
+          271828
+        ],
+        "reference_weight": 0.25,
+        "warning": "Blend coefficients compared on these same OOF predictions; not an independent estimate."
+      }
+    }
+  }
+}
