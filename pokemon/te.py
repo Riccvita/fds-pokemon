@@ -10,7 +10,7 @@ from collections import defaultdict
 
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, StratifiedGroupKFold
 
 
 def team_keys(battles):
@@ -121,20 +121,35 @@ def _encode(stats, k1, k2, keys, cands, idx):
     return df
 
 
-def oof_te2(k1, k2, y, keys, cands, train_idx, apply_idx, n_splits=5, seed=0):
+def oof_te2(k1, k2, y, keys, cands, train_idx, apply_idx, n_splits=5, seed=0, groups=None):
     """Target-encode a training set out-of-fold and a second set with the full training stats.
 
     Rows in `train_idx` are encoded with statistics from the other inner folds only.
     Rows in `apply_idx` (validation or test) are encoded with the statistics of the
     whole `train_idx`. `apply_idx` may be None, in which case only the first frame is built.
 
+    Optional groups keep duplicate battles or P1 composition components together
+    in the inner encoder splits. Fully revealed P2 occurrences are still counted
+    from fitting rows; P1 grouping does not imply absence from both sides.
     Returns (train_features, apply_features), both with a fresh 0..n-1 index.
     """
     train_idx = np.asarray(train_idx)
     parts = []
 
     # --- out-of-fold encoding of the training rows
-    for fit_pos, enc_pos in KFold(n_splits, shuffle=True, random_state=seed).split(train_idx):
+    if groups is None:
+        splits = KFold(n_splits, shuffle=True, random_state=seed).split(train_idx)
+    else:
+        local_groups = np.asarray(groups)[train_idx]
+        folds = min(n_splits, len(set(local_groups)))
+        if folds < 2:
+            raise ValueError("Target encoding needs at least two distinct training groups.")
+        splits = StratifiedGroupKFold(folds, shuffle=True, random_state=seed).split(
+            train_idx, np.asarray(y)[train_idx], local_groups,
+        )
+    for fit_pos, enc_pos in splits:
+        if groups is not None and set(local_groups[fit_pos]) & set(local_groups[enc_pos]):
+            raise AssertionError("Target encoding split crosses protected groups")
         stats = fit_stats(k1, k2, y, train_idx[fit_pos])
 
         part = _encode(stats, k1, k2, keys, cands, train_idx[enc_pos])

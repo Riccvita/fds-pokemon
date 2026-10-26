@@ -128,7 +128,8 @@ def feats4(battle, cands, M, w, names, dex, chart):
                 fainted.add(st["name"])
 
     team = [p["name"] for p in battle["p1_team_details"]]
-    alive1 = [n for n in team if n not in fainted1]
+    alive1_all = [n for n in team if n not in fainted1]
+    alive1 = [n for n in alive1_all if n in dex]
     alive2 = [n for n in seen if n not in fainted2 and n in dex]
 
     def best_stab(attacker, defender):
@@ -161,7 +162,7 @@ def feats4(battle, cands, M, w, names, dex, chart):
                   "spe_faster_frac", "wt_atk_diff", "wt_spa_diff", "wt_def_diff", "wt_spd_diff"]:
             f[k] = np.nan
 
-    f["x_alive_a1"] = len(alive1)
+    f["x_alive_a1"] = len(alive1_all)
     f["x_alive_a2seen"] = len(alive2)
 
     return f

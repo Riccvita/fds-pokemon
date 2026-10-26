@@ -57,7 +57,7 @@ pokemon/
   te.py             Leakage-safe, nested team target encoding
   main.py           Data processing, models, cross-validation, submissions
 notebooks/
-  kaggle_notebook.ipynb  Public-notebook entry point, clones this repository
+  kaggle_notebook.ipynb  Explicit local source or user fork entry point
 submissions/
   sub1_lgbm.csv
   sub2_lgb_xgb.csv
@@ -87,7 +87,33 @@ python run.py --data /path/to/data --out submissions
 python run.py --data /path/to/data --out submissions --cv
 ```
 
-Run `notebooks/kaggle_notebook.ipynb` on Kaggle. The clone cell already points to this public repository and installs pinned packages from `requirements.txt`. Enable Kaggle Internet access for cloning and dependency installation, and restart the kernel if it has loaded different versions. The notebook refreshes an existing checkout using a fast-forward-only pull.
+Validation diagnostics are now separate from submissions: `--cv-out` defaults
+to `validation_runs/original` and contains `validation_predictions.csv`,
+`validation_report.json`, and `data_audit.json`. Predictions include source row,
+battle ID, fold, outcome, probabilities, binary decisions and correctness.
+Use `--validation-only` to skip submission fitting. The default return from
+`cross_validate` remains an accuracy dictionary; `return_details=True` returns
+the report and OOF table. Rebuild older feature caches to include raw records
+and training IDs needed for the new diagnostics.
+
+Optional modes support fixed repeated outer seeds (`--repeat-cv`), P1 composition
+groups (`--group-by-p1`), global versus fold-local preparation
+(`--preparation compare`), and inner selection of the three existing blends
+(`--nested-cv`). Model parameters and blend weights are unchanged. Duplicate
+battles are kept together when detected; no suspicious data are deleted.
+No new competition scores are claimed without the original data.
+
+**Step-by-step commands, interpretation and limitations (Italian):**
+[`docs/VALIDATION_PROTOCOLS.md`](docs/VALIDATION_PROTOCOLS.md).
+
+The notebook now explicitly chooses a **local/uploaded modified copy** or
+**your own fork**. Set `SOURCE_MODE` and the source directory or fork URL/revision
+in its first cell. It prints the actual imported module path and saves source
+hashes, including local modifications; it does not assume the original GitHub
+repository contains these changes. Enable Kaggle Internet only when needed
+for cloning/dependency installation. Restart the kernel when changing source
+or loaded dependencies. See the guide for an archive command that includes
+uncommitted files without requiring push access to the original repository.
 
 When explicitly enabled, the notebook also evaluates the 42-feature active-strength candidate with seed
 42 and saves its OOF predictions, scores and separate candidate CSVs. The optional experiment is **disabled by default** (`RUN_STRENGTH_RESEARCH = False`). Set it to `True` only when separately evaluating the candidate. A follow-up Kaggle run measured 69.64%, compared with 69.85%
@@ -145,7 +171,7 @@ POKEMON_DATA_DIR=/path/to/data python -m unittest discover -s tests -v
 - Use only the original train/test JSONL files and official Generation 2 type chart.
 - Avoid using the test set or leaderboard to select model hyperparameters.
 - Select **three** Kaggle submissions before the competition closes on **5 November 2026 at 23:59**.
-- After the competition closes, make the Kaggle notebook public. It must **clone the GitHub repository** and reproduce the three selected submissions, with a Markdown explanation before each one.
+- After the competition closes, make the Kaggle notebook public. It must satisfy the required public source/clone workflow (configure your own fork if a clone is required) and reproduce the three selected submissions, with a Markdown explanation before each one.
 - Submit the notebook and report by **12 November 2026**.
 
 This project emphasizes methodological transparency and reproducibility. No private leaderboard score is claimed.
