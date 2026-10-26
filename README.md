@@ -6,26 +6,41 @@ The repository contains an executable **classical machine learning** pipeline us
 
 ## Cross-validated results
 
-The historical reference accuracies below use **the labeled 10,000 training battles only**, with stratified five-fold cross-validation (random seed 42). Team target encodings are recomputed from the four training folds in every outer split and are additionally cross-fitted inside the training fold. The competition test set is never used to assess accuracy.
+The most recent **user-reported Kaggle run (26 October 2026)** generated
+10,000 out-of-fold predictions using stratified five-fold cross-validation
+(seed 42) and leakage-safe nested team target encoding. Its reported direct
+dependency versions are pinned in [`requirements.txt`](requirements.txt).
+Scores below are the **measured training OOF accuracies**, not Kaggle test scores.
 
-| Model or submission | Models / blend weights | OOF accuracy |
+| Model or submission | Models / blend weights | Kaggle OOF accuracy |
 | --- | --- | ---: |
-| LightGBM | LGBM | 69.50% |
+| LightGBM | LGBM | 69.33% |
 | XGBoost | XGB | 69.47% |
 | CatBoost | CAT | 69.31% |
-| `sub1_lgbm.csv` | LGBM 100% | 69.50% |
-| `sub2_lgb_xgb.csv` | LGBM 50% + XGB 50% | 69.70% |
-| **`sub3_lgb_xgb_cat.csv`** | **LGBM 45% + XGB 45% + CAT 10%** | **69.79%** |
+| `sub1_lgbm.csv` | LGBM 100% | 69.33% |
+| `sub2_lgb_xgb.csv` | LGBM 50% + XGB 50% | 69.64% |
+| **`sub3_lgb_xgb_cat.csv`** | **LGBM 45% + XGB 45% + CAT 10%** | **69.72%** |
 
-These are historical measurements, not guaranteed outputs in every environment.
-A supplied Kaggle execution log reports 69.50% / 69.29% / 69.31% for the base
-models and 69.50% for the three-model blend. The log does not include library
-versions, so the exact cause of the difference is unconfirmed. The notebook
-now records loaded versions, input checksums, model parameters and the Git
-commit in `run_manifest.json`, and reports each run's actual scores. See
-[`docs/KAGGLE_REPRODUCIBILITY.md`](docs/KAGGLE_REPRODUCIBILITY.md).
+Earlier experiments in a different environment reported LightGBM at 69.50%,
+XGBoost at 69.47%, CatBoost at 69.31%, the two-model blend at 69.70% and
+the three-model blend at 69.79%. These historical scores remain in the
+research reports for transparency, but **69.72% is the most recent Kaggle
+baseline reported for the pinned submission setup**. Version pinning improves
+repeatability but does not guarantee bit-for-bit identical results across
+platforms or installations.
 
-**The requested 80% target has not been achieved.** The best measured gain over the original LightGBM reference is only 0.29 percentage points. Five-fold selection of blend weights can cause modest optimistic bias in the quoted ensemble result; private test performance is unknown.
+The notebook prints the **actual measured scores** and writes
+`run_manifest.json` containing dependency versions, the Git commit, input
+checksums, feature columns, model parameters and cross-validation settings.
+See [`docs/KAGGLE_REPRODUCIBILITY.md`](docs/KAGGLE_REPRODUCIBILITY.md).
+`requirements-kaggle.txt` is kept for a **separate historical comparison**
+using XGBoost 3.4.1 and CatBoost 1.2.10; it is not used by the submission
+notebook.
+
+**The 80% target has not been achieved.** The recent three-model blend
+improves on LightGBM alone by 0.39 percentage points on the same run.
+Blend selection on training OOF results can be optimistic; private
+test performance is unknown.
 
 ## Repository structure
 
@@ -72,15 +87,13 @@ python run.py --data /path/to/data --out submissions
 python run.py --data /path/to/data --out submissions --cv
 ```
 
-Run `notebooks/kaggle_notebook.ipynb` on Kaggle after substituting the public repository URL in the clone cell. Kaggle Internet access must permit the `git clone` operation.
+Run `notebooks/kaggle_notebook.ipynb` on Kaggle. The clone cell already points to this public repository and installs pinned packages from `requirements.txt`. Enable Kaggle Internet access for cloning and dependency installation, and restart the kernel if it has loaded different versions. The notebook refreshes an existing checkout using a fast-forward-only pull.
 
 The notebook also evaluates the 42-feature active-strength candidate with seed
-42 and saves its OOF predictions, scores and separate candidate CSVs. Set
-`RUN_STRENGTH_RESEARCH = False` in the setup cell to skip this additional
-experiment. A follow-up Kaggle run measured 69.64%, compared with 69.85%
+42 and saves its OOF predictions, scores and separate candidate CSVs. The optional experiment is **disabled by default** (`RUN_STRENGTH_RESEARCH = False`). Set it to `True` only when separately evaluating the candidate. A follow-up Kaggle run measured 69.64%, compared with 69.85%
 locally; this candidate is not part of the original 637-feature baseline.
 
-The three submissions must preserve the official template's `battle_id` order and contain binary predictions. Follow the competition's daily limits and final selection requirements.
+The three submissions must preserve the official template's `battle_id` order and contain binary predictions. Regenerate CSVs from the current notebook before submitting: files already committed under `submissions/` are previous snapshots, not automatically updated by a dependency change. Follow the competition's daily limits and final selection requirements.
 
 ## Feature engineering
 
