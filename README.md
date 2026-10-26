@@ -89,7 +89,7 @@ python run.py --data /path/to/data --out submissions --cv
 
 Run `notebooks/kaggle_notebook.ipynb` on Kaggle. The clone cell already points to this public repository and installs pinned packages from `requirements.txt`. Enable Kaggle Internet access for cloning and dependency installation, and restart the kernel if it has loaded different versions. The notebook refreshes an existing checkout using a fast-forward-only pull.
 
-The notebook also evaluates the 42-feature active-strength candidate with seed
+When explicitly enabled, the notebook also evaluates the 42-feature active-strength candidate with seed
 42 and saves its OOF predictions, scores and separate candidate CSVs. The optional experiment is **disabled by default** (`RUN_STRENGTH_RESEARCH = False`). Set it to `True` only when separately evaluating the candidate. A follow-up Kaggle run measured 69.64%, compared with 69.85%
 locally; this candidate is not part of the original 637-feature baseline.
 
